@@ -12,7 +12,7 @@ import {
 
 import NotFound from './components/NotFound/NotFound';
 import Login from './components/Login/Login';
-import Hotel from './components/Hotel/Hotel';
+
 import Location from './components/FakeData/Location'
 import { createContext } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
@@ -36,12 +36,10 @@ function App(props) {
           <Route exact path="/">
             <Home/>
           </Route>
-          <Route path='/booking/:imageId'>
+          <Route path='/booking/:Id'>
             <Booking></Booking>
           </Route>
-          <PrivateRoute >
-            <Hotel></Hotel>
-          </PrivateRoute>
+          
           <Route path="/login">
             <Login></Login>
           </Route>

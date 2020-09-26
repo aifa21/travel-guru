@@ -12,10 +12,10 @@ import './Login.css';
 import fb from './fb.png';
 import google from './google.png';
 
-function Login() {
-  
-  const {register, errors, watch  } = useForm();
-  const [newUser, setNewUser] = useState(false);
+
+  function Login() {
+    const {register, errors, watch  } = useForm();
+    const [newUser, setNewUser] = useState(false);
   const [user, setUser] = useState({
     isSignedIn: false,
     name: '',
@@ -55,19 +55,18 @@ function Login() {
 
   const handleResponse = (res, redirect) =>{
     setUser(res);
-    setLoggedInUser(res);
+    setLoggedInUser({...res});
     if(redirect){
         history.replace(from);
     }
   }
-
 
   const handleBlur = (e) => {
     let isFieldValid = true;
     if(e.target.name === 'email'){
       isFieldValid = /\S+@\S+\.\S+/.test(e.target.value);
     }
-    if(e.target.name === 'password1'||e.target.name === 'password2'){
+    if(e.target.name === 'password'){
       const isPasswordValid = e.target.value.length > 6;
       const passwordHasNumber =  /\d{1}/.test(e.target.value);
       isFieldValid = isPasswordValid && passwordHasNumber;
@@ -78,39 +77,24 @@ function Login() {
       setUser(newUserInfo);
     }
   }
-
-  
-  
-
-const handleSubmit = (e) => {
-   
-  console.log(user.name, user.email,user.password)
-
-  if(user.name && user.password){  
-    firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-    .then(res => {
-      const newUserInfo = {...user};
-      newUserInfo.erorr = '';
-      newUserInfo.success = true;
-      setUser(newUserInfo);
-      setLoggedInUser(newUserInfo);
-      history.replace(from);
-      
-    
-    })
-    .catch( error => {
-      const newUserInfo = {...user};
-      newUserInfo.error = error.message;
-      newUserInfo.success = false;
-      setUser(newUserInfo);
-      setLoggedInUser(newUserInfo);
-      console.log(error.message)
-    });   
+  const handleSubmit = (e) => {
+    if(newUser && user.email && user.password){
+      createUserWithEmailAndPassword(user.name, user.email, user.password)
+      .then(res => {
+        handleResponse(res, true);
+      })
     }
-  e.preventDefault();
-};
 
-
+    if(!newUser && user.email && user.password){
+      signInWithEmailAndPassword(user.email, user.password)
+      .then(res => {
+        handleResponse(res, true);
+      })
+    }
+    e.preventDefault();
+    }
+  
+  
 
 
   return (
@@ -145,7 +129,10 @@ const handleSubmit = (e) => {
         <input type="submit"  value={newUser ? 'Create an account' : 'Login'}/>
         <br/><br/>
       </form>
-      
+      <p style={{ color: 'red' }}>{user.error}</p>
+            {
+                user.success && <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged in'} Successfully</p>
+            }
       <p style={{textAlign:"center"}}>{newUser ? "Already have an account ? ":"Don't have account ?"  }
       <span onClick={()=>setNewUser(!newUser)} style={{color:"#F9A51A",cursor:"pointer"}}>{newUser? " Login" :" Create Account"}</span></p>
       </div>

@@ -1,21 +1,21 @@
 import React, { useContext } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './Booking.css';
 import Header from '../Header/Header';
 import { Link, useParams } from 'react-router-dom';
 import location from '../FakeData/Location'
 import { userContext } from '../../App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 const Booking = () => {
 
-    const {imageId}=useParams();
-    const place=location.find(place=>place.id===imageId);
+    const {Id}=useParams();
+    const loc=location.find(loc=>loc.id===Id);
     return (
         
            
      <div className="row">
           <div className="col-md-6 place-div">
-              <h3 className="title">{place.name}</h3>
-                <p className="description">{place.description}</p>
+              <h3 className="title">{loc.name}</h3>
+                <p className="description">{loc.description}</p>
             </div>
 
      <div className="col-md-6 form-div">
