@@ -14,7 +14,7 @@ const Home = () => {
       
         <CardDeck>
   <Card>
-    <Card.Img variant="top" src={pic1} width="232" height="200" />
+    <Card.Img variant="top" src={pic1} width="232" height="400" />
     <Card.Body>
       <Card.Title>Cox's bazar</Card.Title>
       <Card.Text>
@@ -27,7 +27,7 @@ const Home = () => {
     </Card.Footer>
   </Card>
   <Card>
-    <Card.Img variant="top" src={pic2} width="232" height="200"  />
+    <Card.Img variant="top" src={pic2} width="232" height="400"  />
     <Card.Body>
       <Card.Title>Sreemangal</Card.Title>
       <Card.Text>
@@ -40,7 +40,7 @@ const Home = () => {
     </Card.Footer>
   </Card>
   <Card>
-    <Card.Img variant="top" src={pic3} width="232" height="200"  />
+    <Card.Img variant="top" src={pic3} width="232" height="400"  />
     <Card.Body>
       <Card.Title>Sundarbans</Card.Title>
       <Card.Text>
